@@ -150,6 +150,13 @@
       margin-bottom: 16px;
     }
 
+    .mode-tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
     button {
       border: none;
       border-radius: 12px;
@@ -166,6 +173,7 @@
     .primary { background: var(--accent-2); color: white; }
     .secondary { background: #e8eeff; color: var(--accent-2); }
     .accent { background: #ffe4f0; color: var(--accent); }
+    .tab-btn.active { background: var(--accent-2); color: #fff; }
 
     .control-grid {
       display: grid;
@@ -415,6 +423,11 @@
         </div>
 
         <div class="controls">
+          <div class="mode-tabs">
+            <button class="secondary tab-btn active" id="showTasksBtn">Ülesanded</button>
+            <button class="secondary tab-btn" id="showPracticalBtn">Praktiline töö</button>
+          </div>
+
           <div class="button-row">
             <button class="primary" id="playPauseBtn">Paus</button>
             <button class="secondary" id="resetBtn">Alusta uuesti</button>
@@ -477,7 +490,7 @@
       </div>
     </section>
 
-    <section class="card" style="margin-top:16px;">
+    <section class="card" style="margin-top:16px;" id="tasksSection">
       <div class="card-header">
         <div>
           <h3>Harjutusülesanded</h3>
@@ -625,7 +638,7 @@
       </div>
     </section>
 
-    <section class="card" style="margin-top:16px;">
+    <section class="card" style="margin-top:16px; display:none;" id="practicalSection">
       <div class="card-header">
         <div>
           <h3>Samm-sammuline praktilise töö juhend</h3>
@@ -730,17 +743,16 @@
     const frequencyInfo = document.getElementById('frequencyInfo');
     const omegaInfo = document.getElementById('omegaInfo');
     const conceptText = document.getElementById('conceptText');
-    const taskPeriod = document.getElementById('taskPeriod');
-    const taskPeriod2 = document.getElementById('taskPeriod2');
-    const taskTime = document.getElementById('taskTime');
-    const taskTime2 = document.getElementById('taskTime2');
-    const taskTime3 = document.getElementById('taskTime3');
 
     const playPauseBtn = document.getElementById('playPauseBtn');
     const resetBtn = document.getElementById('resetBtn');
     const toggleVelocityBtn = document.getElementById('toggleVelocityBtn');
     const toggleTeacherBtn = document.getElementById('toggleTeacherBtn');
     const refreshTasksBtn = document.getElementById('refreshTasksBtn');
+    const showTasksBtn = document.getElementById('showTasksBtn');
+    const showPracticalBtn = document.getElementById('showPracticalBtn');
+    const tasksSection = document.getElementById('tasksSection');
+    const practicalSection = document.getElementById('practicalSection');
 
     let amplitude = parseFloat(ampRange.value);
     let period = parseFloat(periodRange.value);
@@ -1256,6 +1268,14 @@
       drawGraph();
     }
 
+    function showPanel(which) {
+      const showTasks = which === 'tasks';
+      tasksSection.style.display = showTasks ? 'block' : 'none';
+      practicalSection.style.display = showTasks ? 'none' : 'block';
+      showTasksBtn.classList.toggle('active', showTasks);
+      showPracticalBtn.classList.toggle('active', !showTasks);
+    }
+
     [ampRange, periodRange, phaseRange, speedScaleRange].forEach(el => {
       el.addEventListener('input', updateStateFromControls);
     });
@@ -1288,6 +1308,9 @@
     refreshTasksBtn.addEventListener('click', () => {
       generateTasks();
     });
+
+    showTasksBtn.addEventListener('click', () => showPanel('tasks'));
+    showPracticalBtn.addEventListener('click', () => showPanel('practical'));
 
     function checkAnswer(type) {
       const tolerance = 0.03;
@@ -1484,6 +1507,7 @@
     updateLiveValues();
     drawSim();
     drawGraph();
+    showPanel('tasks');
     requestAnimationFrame(animate);
   </script>
 </body>
