@@ -256,6 +256,43 @@
       gap: 14px;
     }
 
+    .task-meta {
+      display: grid;
+      gap: 6px;
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: #f8fbff;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .solution-box {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f8fbff;
+      border: 1px solid var(--border);
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--text);
+      white-space: pre-line;
+    }
+
+    .solution-title {
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .task-tools {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
     .task {
       border: 1px solid var(--border);
       border-radius: 14px;
@@ -444,93 +481,135 @@
       <div class="card-header">
         <div>
           <h3>Harjutusülesanded</h3>
-          <p>Automaatkontrolliga ülesanded erinevate raskusastmetega. Kasuta simulatsiooni andmeid.</p>
+          <p>Automaatkontrolliga ülesanded erinevate raskusastmetega. Andmed uuenevad automaatselt ning igal ülesandel on lahenduskäik.</p>
         </div>
+        <button class="primary" id="refreshTasksBtn">Uuenda ülesanded</button>
       </div>
       <div class="tasks">
         <div class="task">
           <strong>I tase – põhiülesanne 1: leia sagedus</strong>
-          <p>Kui periood on <span id="taskPeriod">4.00</span> s, siis kui suur on sagedus f?</p>
+          <p>Arvuta sagedus valemiga f = 1 / T.</p>
+          <div class="task-meta" id="metaF"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerF" placeholder="Hz" />
             <button class="secondary" data-check="f">Kontrolli</button>
             <span class="feedback" id="feedbackF"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="f">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionF" hidden></div>
         </div>
 
         <div class="task">
           <strong>I tase – põhiülesanne 2: leia ringsagedus</strong>
-          <p>Kui periood on <span id="taskPeriod2">4.00</span> s, siis kui suur on ringsagedus ω?</p>
+          <p>Arvuta ringsagedus valemiga ω = 2π / T.</p>
+          <div class="task-meta" id="metaW"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerW" placeholder="rad/s" />
             <button class="secondary" data-check="w">Kontrolli</button>
             <span class="feedback" id="feedbackW"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="w">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionW" hidden></div>
         </div>
 
         <div class="task">
           <strong>I tase – põhiülesanne 3: leia maksimaalne kiirus</strong>
-          <p>Kasuta seost v<sub>max</sub> = ωx₀. Praeguste väärtuste korral leia maksimaalne kiirus.</p>
+          <p>Arvuta maksimaalne kiirus valemiga v<sub>max</sub> = ωx₀.</p>
+          <div class="task-meta" id="metaVmax"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerVmax" placeholder="m/s" />
             <button class="secondary" data-check="vmax">Kontrolli</button>
             <span class="feedback" id="feedbackVmax"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="vmax">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionVmax" hidden></div>
         </div>
 
         <div class="task">
           <strong>II tase – graafiku lugemine 1: leia amplituud</strong>
-          <p>Vaatle simulatsiooni. Kui suur on võnkeamplituud x₀ praegu?</p>
+          <p>Loe amplituud graafikult või kasuta antud andmeid.</p>
+          <div class="task-meta" id="metaAmp"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerAmp" placeholder="m" />
             <button class="secondary" data-check="amp">Kontrolli</button>
             <span class="feedback" id="feedbackAmp"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="amp">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionAmp" hidden></div>
         </div>
 
         <div class="task">
-          <strong>II tase – graafiku lugemine 2: leia hälve ajahetkel</strong>
-          <p>Arvuta hälve hetkel t = <span id="taskTime">1.00</span> s, kasutades valemit x = x₀ sin(ωt + φ₀).</p>
+          <strong>II tase – graafiku lugemine 2: leia hälve kindlal ajahetkel</strong>
+          <p>Arvuta hälve valemiga x = x₀ sin(ωt + φ₀).</p>
+          <div class="task-meta" id="metaXtime"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerXtime" placeholder="m" />
             <button class="secondary" data-check="xtime">Kontrolli</button>
             <span class="feedback" id="feedbackXtime"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="xtime">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionXtime" hidden></div>
         </div>
 
         <div class="task">
           <strong>II tase – mõisteülesanne 3: maksimaalne kiirendus</strong>
-          <p>Kasuta seost a<sub>max</sub> = ω²x₀. Leia maksimaalne kiirendus.</p>
+          <p>Arvuta maksimaalne kiirendus valemiga a<sub>max</sub> = ω²x₀.</p>
+          <div class="task-meta" id="metaAmax"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerAmax" placeholder="m/s²" />
             <button class="secondary" data-check="amax">Kontrolli</button>
             <span class="feedback" id="feedbackAmax"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="amax">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionAmax" hidden></div>
         </div>
 
         <div class="task">
           <strong>III tase – analüüs 1: hetkekiirus</strong>
-          <p>Arvuta kiirus hetkel t = <span id="taskTime2">1.00</span> s, kasutades valemit v = ωx₀cos(ωt + φ₀).</p>
+          <p>Arvuta hetkekiirus valemiga v = ωx₀ cos(ωt + φ₀).</p>
+          <div class="task-meta" id="metaVtime"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerVtime" placeholder="m/s" />
             <button class="secondary" data-check="vtime">Kontrolli</button>
             <span class="feedback" id="feedbackVtime"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="vtime">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionVtime" hidden></div>
         </div>
 
         <div class="task">
           <strong>III tase – analüüs 2: hetkekiirendus</strong>
-          <p>Arvuta kiirendus hetkel t = <span id="taskTime3">1.00</span> s, kasutades valemit a = -ω²x.</p>
+          <p>Arvuta hetkekiirendus valemiga a = -ω²x.</p>
+          <div class="task-meta" id="metaAtime"></div>
           <div class="answer-row">
             <input type="number" step="0.01" id="answerAtime" placeholder="m/s²" />
             <button class="secondary" data-check="atime">Kontrolli</button>
             <span class="feedback" id="feedbackAtime"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="atime">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionAtime" hidden></div>
         </div>
 
         <div class="task">
           <strong>III tase – arutlusülesanne 3: millal on kiirus maksimaalne?</strong>
           <p>Vali õige väide.</p>
+          <div class="task-meta" id="metaConcept"></div>
           <div class="answer-row">
             <label><input type="radio" name="conceptQ" value="wrong1"> Äärmistes asendites</label>
             <label><input type="radio" name="conceptQ" value="correct"> Tasakaaluasendis</label>
@@ -538,6 +617,10 @@
             <button class="secondary" data-check="concept">Kontrolli</button>
             <span class="feedback" id="feedbackConcept"></span>
           </div>
+          <div class="task-tools">
+            <button class="accent" type="button" data-solution="concept">Näita lahenduskäiku</button>
+          </div>
+          <div class="solution-box" id="solutionConcept" hidden></div>
         </div>
       </div>
     </section>
@@ -657,6 +740,7 @@
     const resetBtn = document.getElementById('resetBtn');
     const toggleVelocityBtn = document.getElementById('toggleVelocityBtn');
     const toggleTeacherBtn = document.getElementById('toggleTeacherBtn');
+    const refreshTasksBtn = document.getElementById('refreshTasksBtn');
 
     let amplitude = parseFloat(ampRange.value);
     let period = parseFloat(periodRange.value);
@@ -668,6 +752,13 @@
     let showVelocity = true;
     let teacherMode = false;
     let lastTs = performance.now();
+
+    let taskData = {
+      period: 4,
+      amplitude: 1.2,
+      phase0: 0,
+      sampleTime: 1
+    };
 
     function omega() { return 2 * Math.PI / period; }
     function frequency() { return 1 / period; }
@@ -710,11 +801,84 @@
       frequencyInfo.textContent = `f = ${fmt(frequency())} Hz`;
       omegaInfo.textContent = `ω = ${fmt(omega())} rad/s`;
       mainFormula.textContent = `x(t) = ${fmt(amplitude)} · sin(${fmt(omega())}t + ${fmt(phase0)})`;
-      taskPeriod.textContent = fmt(period);
-      taskPeriod2.textContent = fmt(period);
-      taskTime.textContent = fmt(period / 4);
-      taskTime2.textContent = fmt(period / 4);
-      taskTime3.textContent = fmt(period / 4);
+    }
+
+    function randomFrom(min, max, step) {
+      const count = Math.round((max - min) / step);
+      const idx = Math.floor(Math.random() * (count + 1));
+      return Number((min + idx * step).toFixed(2));
+    }
+
+    function taskOmega() {
+      return 2 * Math.PI / taskData.period;
+    }
+
+    function taskX(t) {
+      return taskData.amplitude * Math.sin(taskOmega() * t + taskData.phase0);
+    }
+
+    function taskV(t) {
+      return taskOmega() * taskData.amplitude * Math.cos(taskOmega() * t + taskData.phase0);
+    }
+
+    function taskA(t) {
+      return -(taskOmega() ** 2) * taskX(t);
+    }
+
+    function generateTasks() {
+      taskData.period = randomFrom(2, 6, 0.5);
+      taskData.amplitude = randomFrom(0.5, 2.0, 0.1);
+      taskData.phase0 = randomFrom(0, 1.57, 0.52);
+      taskData.sampleTime = Number((taskData.period / 4).toFixed(2));
+
+      document.getElementById('metaF').innerHTML = `Andmed: T = ${fmt(taskData.period)} s<br>Tähised: T – võnkeperiood, f – sagedus.`;
+      document.getElementById('metaW').innerHTML = `Andmed: T = ${fmt(taskData.period)} s<br>Tähised: T – võnkeperiood, ω – ringsagedus.`;
+      document.getElementById('metaVmax').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m, T = ${fmt(taskData.period)} s<br>Tähised: x₀ – amplituud, T – periood, ω – ringsagedus, v_max – maksimaalne kiirus.`;
+      document.getElementById('metaAmp').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m<br>Tähised: x₀ – amplituud ehk maksimaalne hälve tasakaaluasendist.`;
+      document.getElementById('metaXtime').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m, T = ${fmt(taskData.period)} s, φ₀ = ${fmt(taskData.phase0)} rad, t = ${fmt(taskData.sampleTime)} s<br>Tähised: x – hälve, x₀ – amplituud, T – periood, φ₀ – algfaas, t – aeg.`;
+      document.getElementById('metaAmax').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m, T = ${fmt(taskData.period)} s<br>Tähised: a_max – maksimaalne kiirendus, x₀ – amplituud, T – periood, ω – ringsagedus.`;
+      document.getElementById('metaVtime').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m, T = ${fmt(taskData.period)} s, φ₀ = ${fmt(taskData.phase0)} rad, t = ${fmt(taskData.sampleTime)} s<br>Tähised: v – hetkekiirus, x₀ – amplituud, T – periood, φ₀ – algfaas, t – aeg.`;
+      document.getElementById('metaAtime').innerHTML = `Andmed: x₀ = ${fmt(taskData.amplitude)} m, T = ${fmt(taskData.period)} s, φ₀ = ${fmt(taskData.phase0)} rad, t = ${fmt(taskData.sampleTime)} s<br>Tähised: a – hetkekiirendus, x – hälve, x₀ – amplituud, T – periood, φ₀ – algfaas, t – aeg.`;
+      document.getElementById('metaConcept').innerHTML = `Andmed: harmoonilise võnkumise üldised omadused.<br>Tähised: v – kiirus, x – hälve.`;
+
+      document.getElementById('solutionF').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Kasutan valemit f = 1 / T.
+2. Asendan andmed: f = 1 / ${fmt(taskData.period)}.
+3. Arvutan: f = ${fmt(1 / taskData.period)} Hz.`;
+      document.getElementById('solutionW').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Kasutan valemit ω = 2π / T.
+2. Asendan andmed: ω = 2π / ${fmt(taskData.period)}.
+3. Arvutan: ω = ${fmt(taskOmega())} rad/s.`;
+      document.getElementById('solutionVmax').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Kõigepealt leian ringsageduse: ω = 2π / T = 2π / ${fmt(taskData.period)} = ${fmt(taskOmega())} rad/s.
+2. Kasutan valemit v_max = ωx₀.
+3. Asendan andmed: v_max = ${fmt(taskOmega())} · ${fmt(taskData.amplitude)}.
+4. Arvutan: v_max = ${fmt(taskOmega() * taskData.amplitude)} m/s.`;
+      document.getElementById('solutionAmp').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Amplituud x₀ on suurim hälve tasakaaluasendist.
+2. Antud ülesandes on amplituud juba andmetes kirjas.
+3. Vastus: x₀ = ${fmt(taskData.amplitude)} m.`;
+      document.getElementById('solutionXtime').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Leian ringsageduse: ω = 2π / T = 2π / ${fmt(taskData.period)} = ${fmt(taskOmega())} rad/s.
+2. Kasutan valemit x = x₀ sin(ωt + φ₀).
+3. Asendan andmed: x = ${fmt(taskData.amplitude)} · sin(${fmt(taskOmega())} · ${fmt(taskData.sampleTime)} + ${fmt(taskData.phase0)}).
+4. Arvutan: x = ${fmt(taskX(taskData.sampleTime))} m.`;
+      document.getElementById('solutionAmax').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Leian ringsageduse: ω = 2π / T = ${fmt(taskOmega())} rad/s.
+2. Kasutan valemit a_max = ω²x₀.
+3. Asendan andmed: a_max = (${fmt(taskOmega())})² · ${fmt(taskData.amplitude)}.
+4. Arvutan: a_max = ${fmt((taskOmega() ** 2) * taskData.amplitude)} m/s².`;
+      document.getElementById('solutionVtime').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Leian ringsageduse: ω = ${fmt(taskOmega())} rad/s.
+2. Kasutan valemit v = ωx₀ cos(ωt + φ₀).
+3. Asendan andmed: v = ${fmt(taskOmega())} · ${fmt(taskData.amplitude)} · cos(${fmt(taskOmega())} · ${fmt(taskData.sampleTime)} + ${fmt(taskData.phase0)}).
+4. Arvutan: v = ${fmt(taskV(taskData.sampleTime))} m/s.`;
+      document.getElementById('solutionAtime').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Leian kõigepealt hälbe: x = ${fmt(taskX(taskData.sampleTime))} m.
+2. Kasutan valemit a = -ω²x.
+3. Asendan andmed: a = -(${fmt(taskOmega())})² · (${fmt(taskX(taskData.sampleTime))}).
+4. Arvutan: a = ${fmt(taskA(taskData.sampleTime))} m/s².`;
+      document.getElementById('solutionConcept').innerHTML = `<div class="solution-title">Lahenduskäik</div>1. Harmoonilise võnkumise äärmistes asendites on keha hetkeks paigal.
+2. Seega on seal kiirus v = 0.
+3. Tasakaaluasendi läbimisel on keha kiirus suurim.
+4. Õige vastus: tasakaaluasendis.`;
+
+      document.querySelectorAll('.solution-box').forEach(box => box.hidden = true);
+      document.querySelectorAll('.feedback').forEach(el => { el.textContent = ''; el.className = 'feedback'; });
+      document.querySelectorAll('.task input[type="number"]').forEach(input => input.value = '');
+      document.querySelectorAll('input[name="conceptQ"]').forEach(input => input.checked = false);
     }
 
     function updateLiveValues() {
@@ -1121,9 +1285,13 @@
       drawGraph();
     });
 
+    refreshTasksBtn.addEventListener('click', () => {
+      generateTasks();
+    });
+
     function checkAnswer(type) {
       const tolerance = 0.03;
-      const sampleTime = period / 4;
+      const sampleTime = taskData.sampleTime;
 
       if (type === 'f') {
         const value = parseFloat(document.getElementById('answerF').value);
@@ -1133,7 +1301,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = frequency();
+        const correct = 1 / taskData.period;
         if (Math.abs(value - correct) <= tolerance) {
           feedback.textContent = `Õige. f = ${fmt(correct)} Hz.`;
           feedback.className = 'feedback good';
@@ -1151,7 +1319,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = omega();
+        const correct = taskOmega();
         if (Math.abs(value - correct) <= 0.05) {
           feedback.textContent = `Õige. ω = ${fmt(correct)} rad/s.`;
           feedback.className = 'feedback good';
@@ -1169,7 +1337,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = omega() * amplitude;
+        const correct = taskOmega() * taskData.amplitude;
         if (Math.abs(value - correct) <= 0.05) {
           feedback.textContent = `Õige. v_max = ${fmt(correct)} m/s.`;
           feedback.className = 'feedback good';
@@ -1187,7 +1355,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = amplitude;
+        const correct = taskData.amplitude;
         if (Math.abs(value - correct) <= 0.03) {
           feedback.textContent = `Õige. x₀ = ${fmt(correct)} m.`;
           feedback.className = 'feedback good';
@@ -1205,7 +1373,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = x(sampleTime);
+        const correct = taskX(sampleTime);
         if (Math.abs(value - correct) <= 0.05) {
           feedback.textContent = `Õige. x = ${fmt(correct)} m.`;
           feedback.className = 'feedback good';
@@ -1223,7 +1391,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = (omega() ** 2) * amplitude;
+        const correct = (taskOmega() ** 2) * taskData.amplitude;
         if (Math.abs(value - correct) <= 0.08) {
           feedback.textContent = `Õige. a_max = ${fmt(correct)} m/s².`;
           feedback.className = 'feedback good';
@@ -1241,7 +1409,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = v(sampleTime);
+        const correct = taskV(sampleTime);
         if (Math.abs(value - correct) <= 0.05) {
           feedback.textContent = `Õige. v = ${fmt(correct)} m/s.`;
           feedback.className = 'feedback good';
@@ -1259,7 +1427,7 @@
           feedback.className = 'feedback warn';
           return;
         }
-        const correct = a(sampleTime);
+        const correct = taskA(sampleTime);
         if (Math.abs(value - correct) <= 0.08) {
           feedback.textContent = `Õige. a = ${fmt(correct)} m/s².`;
           feedback.className = 'feedback good';
@@ -1291,7 +1459,28 @@
       btn.addEventListener('click', () => checkAnswer(btn.dataset.check));
     });
 
+    document.querySelectorAll('[data-solution]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const key = btn.dataset.solution;
+        const map = {
+          f: 'solutionF',
+          w: 'solutionW',
+          vmax: 'solutionVmax',
+          amp: 'solutionAmp',
+          xtime: 'solutionXtime',
+          amax: 'solutionAmax',
+          vtime: 'solutionVtime',
+          atime: 'solutionAtime',
+          concept: 'solutionConcept'
+        };
+        const box = document.getElementById(map[key]);
+        box.hidden = !box.hidden;
+        btn.textContent = box.hidden ? 'Näita lahenduskäiku' : 'Peida lahenduskäik';
+      });
+    });
+
     updateLabels();
+    generateTasks();
     updateLiveValues();
     drawSim();
     drawGraph();
